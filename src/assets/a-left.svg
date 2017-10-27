@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="25px" viewBox="0 0 16 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+    <title>左箭头</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="微信-确认发票" transform="translate(-542.000000, -1154.000000)" fill="#999999">
+            <g id="订单信息" transform="translate(0.000000, 162.000000)">
+                <g id="左箭头" transform="translate(550.000000, 1004.500000) rotate(-180.000000) translate(-550.000000, -1004.500000) translate(542.000000, 992.000000)">
+                    <rect id="Rectangle-2" transform="translate(7.778175, 7.778175) rotate(-45.000000) translate(-7.778175, -7.778175) " x="5.77817459" y="-1.22182541" width="4" height="18" rx="2"></rect>
+                    <rect id="Rectangle-2-Copy" transform="translate(7.778175, 16.778175) rotate(-315.000000) translate(-7.778175, -16.778175) " x="5.77817459" y="7.77817459" width="4" height="18" rx="2"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,134 @@
+<template>
+    <div class="fs-12px ">
+        <div v-if="record.CHIEF_COMPLAINT">
+            <div class="p-10px relative">
+                <div>
+                    主诉
+                </div>
+                <div class="pt-6px" v-html="record.CHIEF_COMPLAINT"></div>
+            </div>
+            <div class="bg-eee h-10px"></div>
+        </div>
+
+        <div v-if="record.CURRENT_MEDICAL_HISTORY">
+            <div class="p-10px relative">
+                <div>
+                    现病史
+                </div>
+                <div class="pt-6px" v-html="record.CURRENT_MEDICAL_HISTORY"></div>
+            </div>
+            <div class="bg-eee h-10px"></div>
+        </div>
+
+        <div v-if="record.PAST_HISTORY">
+            <div class="p-10px relative">
+                <div class="fbold">
+                    既往史
+                </div>
+                <div class="pt-6px" v-html="record.PAST_HISTORY"></div>
+            </div>
+            <div class="bg-eee h-10px"></div>
+        </div>
+
+        <div>
+            <div class="p-10px relative">
+                <div class="fbold">
+                    家族史
+                </div>
+                <div class="pt-6px" v-html="record.FAMILY_HISTORY"></div>
+            </div>
+            <div class="bg-eee h-10px"></div>
+        </div>
+
+        <div v-if="record.PHYSICALEXAM">
+            <div class="p-10px relative">
+                <div class="fbold">
+                    体格检查
+                </div>
+                <div class="pt-6px">{{record.PHYSICALEXAM}}</div>
+            </div>
+            <div class="bg-eee h-10px"></div>
+        </div>
+
+        <div class="p-10px relative" v-if="record.SPECIALEXAM">
+            <div class="fbold">
+                专科检查
+            </div>
+            <div class="pt-6px">{{record.SPECIALEXAM}}</div>
+        </div>
+
+        <div v-if="record.AUXILYEXAM">
+            <div class="bg-eee h-10px"></div>
+            <div class="p-10px relative">
+                <div class="fbold">
+                    辅助检查
+                </div>
+                <div class="pt-6px" v-html="record.AUXILYEXAM"></div>
+            </div>
+            <div class="bg-eee h-10px"></div>
+        </div>
+
+        <div v-if="record.INITIAL_DIAGNOSIS">
+            <div class="p-10px relative">
+                <div class="fbold">
+                    初步诊断
+                </div>
+                <div class="pt-6px">{{record.INITIAL_DIAGNOSIS}}</div>
+            </div>
+            <div class="bg-eee h-10px"></div>
+        </div>
+       
+       <div v-if="record.EPRESENTOR">
+            <div class="p-10px relative" >
+                <div class="fbold">
+                    病史陈述者
+                </div>
+                <div class="pt-6px">{{record.EPRESENTOR}}</div>
+            </div>
+            <div class="bg-eee h-10px"></div>
+       </div>
+    </div>
+</template>
+
+<script>
+import axios from 'axios'
+import store from 'store'
+export default {
+    data(){
+        return {
+            record: {},
+
+        }
+    },
+    mounted(){
+        let uuid = '9A97C5D8891242F0AB87881A295D686B'
+        let token = 'cf338f46-0f45-448f-b2c3-0a5cdd8a13ab'
+        let ehrId = '2984543'
+
+        let t = this
+        let init = store.get('init')
+       let result = request({
+            url: `patient/inHospital/${ehrId}`,
+            data: {
+                token: init.token,
+                uid: init.uuid,
+                t: (new Date().getTime())+4000
+            }
+        }).then(res => {
+            
+            console.log(res.info[0])
+            if (res.flag==0) {
+                
+            } else if (res.flag == 1) {
+                
+                t.record = res.info[0]
+            }
+        })
+    },
+    components: {
+    }
+}
+</script>
+<style>
+
+</style>

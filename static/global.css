@@ -1,0 +1,86 @@
+*{ box-sizing: border-box; text-decoration: none;}
+html{height: 100%;}
+html {font-size: 60px!important;}
+
+.mt-50px {margin-top: 50px;}
+.mt-60px {margin-top: 60px;}
+.mt-70px {margin-top: 70px;}
+.mb-124px { margin-bottom: 124px; }
+.ml-40px {margin-left: 40px;}
+.ml-20px {margin-left: 20px;}
+.ml-28px {margin-left: 28px;}
+.mr-50px{margin-right: 50px;}
+.mb-8px{margin-bottom: 8px;}
+.mx-30px {margin: 0 30px;}
+
+.p-50px {padding: 50px;}
+.px-73px {padding-left: 73px; padding-right: 73px;}
+.px-30px {padding-left: 30px; padding-right: 30px;}
+.py-20px {padding-top: 20px; padding-bottom: 20px;}
+.py-40px {padding: 40px 0;}
+.pt-10px {padding-top: 10px}
+.pt-30px {padding-top: 30px}
+.pt-36px {padding-top: 36px}
+.pt-76px {padding-top: 76px}
+.pb-10px{padding-bottom: 10px}
+.pb-50px{padding-bottom: 50px}
+
+.fs-10px {font-size: 10px;}
+.fs-12px {font-size: 12px;}
+.fs-14px {font-size: 14px;}
+.fs-28px {font-size: 28px;}
+.fs-30px {font-size: 30px;}
+.fs-36px {font-size: 36px;}
+.fs-50px {font-size: 50px;}
+.f-bold {font-weight: bold}
+
+.w-8px{width: 8px;}
+.w-15px{width: 15px;}
+.w-100{width: 100%;}
+
+.h-10px{height: 10px;}
+.h-15px{height: 15px;}
+.h-100vh {height: 100vh;}
+
+.lh-46px{line-height: 46px;}
+
+.c-eee {color: #eee;}
+.c-D8D8D8 {color: #D8D8D8;}
+.c-168ADC {color: #168ADC;}
+.c-BEBEBE {color: #BEBEBE;}
+.write-tb {writing-mode: horizontal-tb}
+
+.radius-10px {border-radius: 10px}
+.radius-50 {border-radius: 50%}
+.border-t-D8D8D8 {border-top: 1px solid #D8D8D8;}
+.border-b {border-bottom: 1px solid #EEEEEE;}
+.border-b-D8D8D8 {border-bottom: 1px solid #D8D8D8;}
+.border-b-eee {border-bottom: 1px solid #eee;}
+.border-c9c9c9 {border: 1px solid #c9c9c9;}
+.border-none {border-style: none;}
+
+.none {display: none;}
+.opacity-5 {opacity: .5;}
+.animation {animation: all 1s ease-in-out}
+.flex-1 {flex: 1;}
+.index-1 {z-index: 1}
+.index-9 {z-index: 9}
+/* btn 相关*/
+
+.bg-09BB07 {background-color: #09BB07;}
+.bg-000 {background-color: #000;}
+.bg-eee {background-color: #eee}
+.bg-fff {background-color: #fff;}
+.bg-rgba5 {background-color: rgba(0, 0, 0, .5)}
+.bg-c9 {background-color: #C9C9C9}
+.bg-F6F6F6 {background-color: #F6F6F6}
+
+.after-bg-eee::after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 10px;
+    background: #BEBEBE;
+    background-origin: border-box;
+    bottom: -10px;
+}
