@@ -1,11 +1,11 @@
 <template>
     <div class="fixed left-0 top-0 w-100 flex  bg-168ADC flex items-center justify-center c-fff py-6px z1">
       
-            <img src="../assets/back.png" @click="close" class="absolute left-10px h-20px" alt="">
+        <img src="../assets/a-left.svg" @click="close" class="absolute left-10px h-20px" alt="">
         
         <div @click="actionSheet" class="auto-center fs-16px">
-            <div class="fs-16px center">{{top.NAME}}</div>
-            <div class="fs-12px center">
+            <div class="fs-18px center">{{top.NAME}}</div>
+            <div class="fs-14px center">
                 <span>{{top.IN_DATE}} 至{{top.OUT_DATE || '现在'}}</span>
                 <img :src="down" class="w-8px h-8px" alt="">
             </div>
@@ -15,6 +15,7 @@
 <script>
 import store from 'store'
 import vstore from '../store/index.js'
+import left from '../assets/a-left.svg'
 import down from '../assets/a-down.svg'
 
 export default {
@@ -22,6 +23,7 @@ export default {
       return {
           top: {},
           down,
+          left,
           list: [] //弹出 时间
       }
   },

@@ -11,70 +11,76 @@
                 </div>
             </div>
         </div> -->
-        <!-- 左侧 -->
-        <div :class="['w-0 bg-eee fs-14px animation overflow-y h-100 pt-56px', {'relative w-3':toggle}]" v-show="toggle" >
-            <div :class="['p-10px border-b-D8D8D8', {'c-168ADC': index==i}]" v-for="(item, i) in queryAllExams" v-bind:key="i" @click="showReport(i)">
-                <div>[住院][{{item.EXAM_MODALITY}}]</div>
-                <div>{{item.EXAM_INSPECTION_DATE}}</div>
-                <div>{{item.EXAM_METHOD}}</div>
-            </div>
-        </div>
-        <!-- 切换 -->
-        <div :class="['fs-12px bg-fff write-tb fixed px-6px py-20px flex flex-column items-center', toggle? 'right-0': 'left-0']" @click="togglePanel">
-            <img :src="[toggle? right:left]" class="w-8px" alt="" >
-        </div>
-        <!-- examReport -->
-        <div class=" flex-1 p-10px fs-14px pt-56px" v-if="examReport">
-            <div class=" fs-16px center py-6px border-b-D8D8D8">{{examReport.LAB_NAME}}</div>
-            <div class="py-6px border-b-D8D8D8">
-                <div>患者信息: {{examReport.PATIENT_NAME}}  {{examReport.SEX==1?'男':'女'}}  {{examReport.AGE}}岁</div>
-                <div>申请科室: {{examReport.SUBMISSION_DEPT_NAME}}</div>
-                <div>检查日期: {{examReport.EXAM_DATE}}</div>
-                <div>检查部位: {{examReport.EXAM_PART}}</div>
-            </div>
-            <div class="py-6px border-b-D8D8D8" v-if="examReport.IMAGE_DESC">
-                <div>
-                    肉眼所见
+        <div v-if='queryAllExams.length>0'>
+             <!-- 左侧 -->
+            <div :class="['w-0 bg-eee fs-14px animation overflow-y h-100 pt-56px', {'relative w-3':toggle}]" v-show="toggle" >
+                <div :class="['p-10px border-b-D8D8D8', {'c-168ADC': index==i}]" v-for="(item, i) in queryAllExams" v-bind:key="i" @click="showReport(i)">
+                    <div>[住院][{{item.EXAM_MODALITY}}]</div>
+                    <div>{{item.EXAM_INSPECTION_DATE}}</div>
+                    <div>{{item.EXAM_METHOD}}</div>
                 </div>
-                <div v-html="examReport.IMAGE_DESC"></div>
             </div>
-            <div class="py-6px border-b-D8D8D8" v-if="examReport.IMAGE_DIAG">
-                <div>
-                    特殊检查
+            <!-- 切换 -->
+            <div :class="['fs-12px bg-fff write-tb fixed px-6px py-20px flex flex-column items-center', toggle? 'right-0': 'left-0']" @click="togglePanel">
+                <img :src="[toggle? right:left]" class="w-8px" alt="" >
+            </div>
+            <!-- examReport -->
+            <div class=" flex-1 p-10px fs-14px pt-56px" v-if="examReport">
+                <div class=" fs-16px center py-6px border-b-D8D8D8">{{examReport.LAB_NAME}}</div>
+                <div class="py-6px border-b-D8D8D8">
+                    <div>患者信息: {{examReport.PATIENT_NAME}}  {{examReport.SEX==1?'男':'女'}}  {{examReport.AGE}}岁</div>
+                    <div>申请科室: {{examReport.SUBMISSION_DEPT_NAME}}</div>
+                    <div>检查日期: {{examReport.EXAM_DATE}}</div>
+                    <div>检查部位: {{examReport.EXAM_PART}}</div>
                 </div>
-                <div v-html="examReport.IMAGE_DIAG"></div>
-            </div>
-            <div class="py-6px border-b-D8D8D8" v-if="examReport.EXAMDESC">
-                <div>
-                    诊断意见
-                </div>
-                <div v-html="examReport.EXAMDESC"></div>
-            </div>
-            <div class="py-6px border-b-D8D8D8" v-if="examReport.IMAGE_DESCX">
-                <div>
-                    镜下所见
-                </div>
-                <div v-html="examReport.IMAGE_DESCX"></div>
-            </div>
-            <div class="py-6px border-b-D8D8D8" v-if="examReport.EXAMDESC">
-                <div>
-                    病理诊断
-                </div>
-                <div v-html="examReport.EXAMDESC"></div>
-            </div>
-            <div class="py-6px border-b-D8D8D8" v-if="examReport">
-                <div class="flex justify-between c-999">
-                    <div >
-                        <div> 报告医生: {{examReport.EXAM_REPORTOR}}</div>
-                        <div> 审核医生: {{examReport.VERIFY_DOCTOR_NAME}}</div>
-                    </div>
+                <div class="py-6px border-b-D8D8D8" v-if="examReport.IMAGE_DESC">
                     <div>
-                        <div>报告日期: {{examReport.EXAM_REPORT_DATE}}</div>
-                        <div>审核日期: {{examReport.EXAM_REPORT_DATE}}</div>
+                        肉眼所见
+                    </div>
+                    <div v-html="examReport.IMAGE_DESC"></div>
+                </div>
+                <div class="py-6px border-b-D8D8D8" v-if="examReport.IMAGE_DIAG">
+                    <div>
+                        特殊检查
+                    </div>
+                    <div v-html="examReport.IMAGE_DIAG"></div>
+                </div>
+                <div class="py-6px border-b-D8D8D8" v-if="examReport.EXAMDESC">
+                    <div>
+                        诊断意见
+                    </div>
+                    <div v-html="examReport.EXAMDESC"></div>
+                </div>
+                <div class="py-6px border-b-D8D8D8" v-if="examReport.IMAGE_DESCX">
+                    <div>
+                        镜下所见
+                    </div>
+                    <div v-html="examReport.IMAGE_DESCX"></div>
+                </div>
+                <div class="py-6px border-b-D8D8D8" v-if="examReport.EXAMDESC">
+                    <div>
+                        病理诊断
+                    </div>
+                    <div v-html="examReport.EXAMDESC"></div>
+                </div>
+                <div class="py-6px border-b-D8D8D8" v-if="examReport">
+                    <div class="flex justify-between c-999">
+                        <div >
+                            <div> 报告医生: {{examReport.EXAM_REPORTOR}}</div>
+                            <div> 审核医生: {{examReport.VERIFY_DOCTOR_NAME}}</div>
+                        </div>
+                        <div>
+                            <div>报告日期: {{examReport.EXAM_REPORT_DATE}}</div>
+                            <div>审核日期: {{examReport.EXAM_REPORT_DATE}}</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+       
+       <div v-else>
+           <a href="javascript:;" class="weui-btn weui-btn_primary">sorry~ 暂无内容</a>
+       </div>
 
     </div>
 </template>

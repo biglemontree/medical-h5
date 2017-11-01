@@ -1,5 +1,5 @@
 <template>
-    <div class="flex relative pb-50px overflow-none h-100vh">
+    <div class="">
         {{test}}
         <!-- 顶部 -->
          <!-- <div class="fixed left-0 top-0 w-100 flex justify-center bg-168ADC c-fff">
@@ -11,55 +11,61 @@
                 </div>
             </div>
         </div> -->
-        <!-- 左侧 -->
-        <div :class="['w-0 bg-eee fs-14px animation overflow-y h-100 pt-56px', {'relative w-3':toggle}]" v-show="toggle">
-            <div :class="['p-10px border-b-D8D8D8', {'c-168ADC': index==i}]" v-for="(item, i) in queryAllExams" v-bind:key="i" @click="showReport(i, item.ID)">
-                <div>[住院]</div>
-                <!-- {{queryAllExams}} -->
-                <div>{{item.LAB_REPORT_DATE}}</div>
-                <div>{{item.LAB_NAME}}</div>
-            </div>
-        </div>
-        <!-- 悬浮层 -->
-        <div :class="['fs-12px bg-fff write-tb fixed px-6px py-20px flex flex-column items-center', toggle? 'right-0': 'left-0']" @click="togglePanel">
-            
-            <img :src="[toggle? right:left]" class="w-8px" alt="" >
-        </div>
-        <!-- 右侧 -->
-        <div class="overflow-y flex-1 p-10px fs-14px pt-56px" v-if="examReport.ID">
-            <div class=" fs-16px center py-6px border-b-D8D8D8">{{examReport.LAB_NAME}}</div>
-            <div class="py-6px border-b-D8D8D8">
-                <div>检验单号: {{examReport.ID}}</div>
-                <div>患者信息: {{examReport.PATIENT_NAME}}  {{examReport.SEX==1?'男':'女'}}  {{examReport.AGE}}岁</div>
-                <div>检查日期: {{examReport.EXAM_DATE}}</div>
-                <div>检查部位: {{examReport.EXAM_PART}}</div>
-            </div>
-            
-            <div class="py-6px border-b-D8D8D8" v-if="lisDataDetail.length>0">
-                <div v-for="(list, index) in lisDataDetail" v-bind:key="index" :class="{'py-6px': true, 'bg': item==index, 'red': !isNormal(list.RESULT_REFERENCE, list.RESULT_VALUE)}"  @click="item = index">
-                    <!-- {{isNormal(list.RESULT_REFERENCE, list.RESULT_VALUE)}} -->
-                    <div>{{list.LAB_ITEM_CH_NAME}}</div>
-                    <div class="flex ">
-                        <div class="flex-1">结果: {{list.RESULT_VALUE}}</div>
-                        <div class="flex-1">单位: {{list.RESULT_UNIT}}</div>
-                    </div>
-                    <div>参考值:{{list.RESULT_REFERENCE}}</div>
-                </div>
-                <!-- <div v-html="examReport.EXAMDESC"></div> -->
-            </div>
-            <div class="py-6px border-b-D8D8D8" v-if="examReport">
-                <div class="flex justify-between c-999">
-                    <div >
-                        <div> 送检医生: {{examReport.SUBMISSION_DOCTOR_NAME}}</div>
-                        <div> 审核医生: {{examReport.VERIFY_DOCTOR_NAME}}</div>
-                    </div>
-                    <div>
-                        <div>校验医生: {{examReport.EXEC_DOCTOR_NAME}}</div>
-                        <div>报告医生: {{examReport.LAB_REPORT_DOCTOR_NAME}}</div>
-                    </div>
+        <div v-if='queryAllExams.length>0' class='flex relative pb-50px overflow-none h-100vh'>
+            <!-- 左侧 -->
+            <div :class="['w-0 bg-e9e9e9 fs-14px animation overflow-y h-100 pt-56px c-444', {'relative w-3':toggle}]" v-show="toggle">
+                <div :class="['p-10px border-b-D8D8D8', {'red': item.RESULT_COUNT>0}, {'c-168ADC': index==i},]" v-for="(item, i) in queryAllExams" v-bind:key="i" @click="showReport(i, item.ID)">
+                    <div>[住院]</div>
+                    <!-- {{queryAllExams}} -->
+                    <div>{{item.LAB_REPORT_DATE}}</div>
+                    <div>{{item.LAB_NAME}}</div>
                 </div>
             </div>
+            <!-- 悬浮层 -->
+            <div :class="['fs-12px bg-fff write-tb fixed px-10px py-20px flex flex-column items-center', toggle? 'right-0': 'left-0']" @click="togglePanel">
+                
+                <img :src="[toggle? right:left]" class="w-10px" alt="" >
+            </div>
+            <!-- 右侧 -->
+            <div class="overflow-y flex-1 p-10px fs-14px pt-56px" v-if="examReport.ID">
+                <div class=" fs-16px center py-6px border-b-D8D8D8">{{examReport.LAB_NAME}}</div>
+                <div class="py-6px border-b-D8D8D8">
+                    <div>检验单号: {{examReport.ID}}</div>
+                    <div>患者信息: {{examReport.PATIENT_NAME}}  {{examReport.SEX==1?'男':'女'}}  {{examReport.AGE}}岁</div>
+                    <div>检查日期: {{examReport.EXAM_DATE}}</div>
+                    <div>检查部位: {{examReport.EXAM_PART}}</div>
+                </div>
+                
+                <div class="py-6px border-b-D8D8D8" v-if="lisDataDetail.length>0">
+                    <div v-for="(list, index) in lisDataDetail" v-bind:key="index" :class="{'py-6px': true, 'bg': item==index, 'red': !isNormal(list.RESULT_REFERENCE, list.RESULT_VALUE)}"  @click="item = index">
+                        <!-- {{isNormal(list.RESULT_REFERENCE, list.RESULT_VALUE)}} -->
+                        <div>{{list.LAB_ITEM_CH_NAME}}</div>
+                        <div class="flex ">
+                            <div class="flex-1">结果: {{list.RESULT_VALUE}}</div>
+                            <div class="flex-1">单位: {{list.RESULT_UNIT}}</div>
+                        </div>
+                        <div>参考值:{{list.RESULT_REFERENCE}}</div>
+                    </div>
+                    <!-- <div v-html="examReport.EXAMDESC"></div> -->
+                </div>
+                <div class="py-6px border-b-D8D8D8" v-if="examReport">
+                    <div class="flex justify-between c-999">
+                        <div >
+                            <div> 送检医生: {{examReport.SUBMISSION_DOCTOR_NAME}}</div>
+                            <div> 审核医生: {{examReport.VERIFY_DOCTOR_NAME}}</div>
+                        </div>
+                        <div>
+                            <div>校验医生: {{examReport.EXEC_DOCTOR_NAME}}</div>
+                            <div>报告医生: {{examReport.LAB_REPORT_DOCTOR_NAME}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+        <div v-else>
+            <a href="javascript:;" class="weui-btn weui-btn_primary">sorry~ 暂无内容</a>
+        </div>
+        
 
     </div>
 </template>
@@ -204,21 +210,21 @@ export default {
 .write-tb {
     top: 45vh;
 }
-.left-0::before{
+/* .left-0::before{
     content: '展开';
     color:#168ADC;
     display: block;
-}
+} */
 .left-0 img {
     color:#168ADC;    
 }
 .right-0 {
     right: 75vw;
 }
-.right-0::before{
+/* .right-0::before{
     content: '关闭';
     display: block;
-}
+} */
 .red {
     color: red;
 }

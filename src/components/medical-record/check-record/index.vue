@@ -2,7 +2,7 @@
 <template>
     <div class="fs-14px">
         {{test}}
-        <div v-for="(item, index) in checkInRecord" v-bind:key='index'>
+        <div v-for="(item, index) in checkInRecord" v-bind:key='index' v-if='checkInRecord.length>0'>
             <div class="p-10px relative">
                 <div class="f-bold">
                     {{item.RECORD_DATE}} {{item.RECORD_TOPIC}}
@@ -10,6 +10,9 @@
                 <div class="pt-6px" v-html="item.RECORD_CONTENT"></div>
             </div>
             <div class="bg-eee h-10px"></div>
+        </div>
+        <div v-else>
+            <a href="javascript:;" class="weui-btn weui-btn_primary">sorry~ 暂无内容</a>
         </div>
     </div>
 </template>
