@@ -1,53 +1,51 @@
 <template>
-    <div class="flex relative pb-50px">
-        <div :class="['w-0 bg-eee fs-12px animation', {'relative w-3':toggle}]" v-show="toggle">
+    <div class="flex relative pb-50px overflow-none h-100vh">
+        {{test}}
+        <!-- 顶部 -->
+         <!-- <div class="fixed left-0 top-0 w-100 flex justify-center bg-168ADC c-fff">
+            <div @click="actionSheet">
+                <div class="fs-12px center">{{top.MASTER_DOCTOR_NAME}}</div>
+                <div class="fs-10px center">
+                    <span>{{top.IN_DATE}} 至{{top.OUT_DATE || '现在'}}</span>
+                    <img :src="down" class="w-4px h-4px" alt="">
+                </div>
+            </div>
+        </div> -->
+        <!-- 左侧 -->
+        <div :class="['w-0 bg-eee fs-14px animation overflow-y h-100 pt-56px', {'relative w-3':toggle}]" v-show="toggle">
             <div :class="['p-10px border-b-D8D8D8', {'c-168ADC': index==i}]" v-for="(item, i) in queryAllExams" v-bind:key="i" @click="showReport(i, item.ID)">
                 <div>[住院]</div>
+                <!-- {{queryAllExams}} -->
                 <div>{{item.LAB_REPORT_DATE}}</div>
                 <div>{{item.LAB_NAME}}</div>
             </div>
         </div>
+        <!-- 悬浮层 -->
         <div :class="['fs-12px bg-fff write-tb fixed px-6px py-20px flex flex-column items-center', toggle? 'right-0': 'left-0']" @click="togglePanel">
             
             <img :src="[toggle? right:left]" class="w-8px" alt="" >
         </div>
-        <div class=" flex-1 p-10px fs-10px">
-            <div class=" fs-16px center py-6px border-b-D8D8D8">检查报告</div>
+        <!-- 右侧 -->
+        <div class="overflow-y flex-1 p-10px fs-14px pt-56px" v-if="examReport.ID">
+            <div class=" fs-16px center py-6px border-b-D8D8D8">{{examReport.LAB_NAME}}</div>
             <div class="py-6px border-b-D8D8D8">
                 <div>检验单号: {{examReport.ID}}</div>
                 <div>患者信息: {{examReport.PATIENT_NAME}}  {{examReport.SEX==1?'男':'女'}}  {{examReport.AGE}}岁</div>
                 <div>检查日期: {{examReport.EXAM_DATE}}</div>
                 <div>检查部位: {{examReport.EXAM_PART}}</div>
             </div>
-            <div class="py-6px border-b-D8D8D8" v-if="examReport.IMAGE_DESC">
-                <div>
-                    肉眼所见
+            
+            <div class="py-6px border-b-D8D8D8" v-if="lisDataDetail.length>0">
+                <div v-for="(list, index) in lisDataDetail" v-bind:key="index" :class="{'py-6px': true, 'bg': item==index, 'red': !isNormal(list.RESULT_REFERENCE, list.RESULT_VALUE)}"  @click="item = index">
+                    <!-- {{isNormal(list.RESULT_REFERENCE, list.RESULT_VALUE)}} -->
+                    <div>{{list.LAB_ITEM_CH_NAME}}</div>
+                    <div class="flex ">
+                        <div class="flex-1">结果: {{list.RESULT_VALUE}}</div>
+                        <div class="flex-1">单位: {{list.RESULT_UNIT}}</div>
+                    </div>
+                    <div>参考值:{{list.RESULT_REFERENCE}}</div>
                 </div>
-                <div v-html="examReport.IMAGE_DESC"></div>
-            </div>
-            <div class="py-6px border-b-D8D8D8" v-if="examReport.IMAGE_DIAG">
-                <div>
-                    特殊检查
-                </div>
-                <div v-html="examReport.IMAGE_DIAG"></div>
-            </div>
-            <div class="py-6px border-b-D8D8D8" v-if="examReport.EXAMDESC">
-                <div>
-                    诊断意见
-                </div>
-                <div v-html="examReport.EXAMDESC"></div>
-            </div>
-            <div class="py-6px border-b-D8D8D8" v-if="examReport.IMAGE_DESCX">
-                <div>
-                    镜下所见
-                </div>
-                <div v-html="examReport.IMAGE_DESCX"></div>
-            </div>
-            <div class="py-6px border-b-D8D8D8" v-if="examReport.EXAMDESC">
-                <div>
-                    病理诊断
-                </div>
-                <div v-html="examReport.EXAMDESC"></div>
+                <!-- <div v-html="examReport.EXAMDESC"></div> -->
             </div>
             <div class="py-6px border-b-D8D8D8" v-if="examReport">
                 <div class="flex justify-between c-999">
@@ -66,62 +64,46 @@
     </div>
 </template>
 <script>
-import axios from 'axios'
+
 import store from 'store'
 import right from '../../assets/a-left.svg'
 import left from './../../assets/a-right.svg'
+import down from '../../assets/a-down.svg'
+import vstore from '../../store/index.js'
 
-let init = store.get('init')
-
-let list = []
 export default {
     data(){
         return {
+            top:{},
             toggle: true, //切换
             left: left, //icon
             right,
+            down,
             index: 0, //默认第一个
             id: '',
+            item: 0,
             examReport: {}, // 检查报告
             lisDataDetail: [],
-            queryAllExams: [] //list
+            queryAllExams: [], //list
+            list: [],
+            ehrId: ''
         }
     },
+    store: vstore,
     mounted(){
-            request({
-                url: `patient/lisData/${init.ehrId}`,
-                data: {
-                    token: init.token,
-                    uid: init.uuid,
-                    t: (new Date().getTime())+4000
-                }
-            }).then(res => {
-                this.queryAllExams = res.info
-                this.examReport = res.info[0]
-                
-                this.getLisDataDetail(res.info[0].ID)
-            })
+     
+
+
     },
     watch: {
         index(){
             this.examReport = this.queryAllExams[this.index]
-            // this.getLisDataDetail(this.queryAllExams[this.index].ID)
         },
-        id(){
-            request({
-                url: `patient/lisDataDetail/${init.ehrId}/${this.id}`,
-                data: {
-                    token: init.token,
-                    uid: init.uuid,
-                    t: (new Date().getTime())+4000
-                }
-            }).then(res => {
-                
-                this.lisDataDetail = res.info
-                
-            })
-        }
-
+    },
+    computed: {
+        test(){
+            this.advice(this.$store.state.ehrId)      
+        },
     },
     methods: {
         togglePanel(){
@@ -130,26 +112,88 @@ export default {
         showReport(i, id){       
             this.index = i
             this.id = id
+            this.getLisDataDetail(this.$store.state.ehrId, this.queryAllExams[i].ID)
         },
-        getLisDataDetail(labId){
+        actionSheet(){
+            weui.actionSheet(this.list, {
+                className: 'custom-classname'
+            });
+        },
+        isClick(index, item){
+            return index==this.item
+        },
+        isNormal(reference, result){
+            if (!result) {
+                return true //正常
+            }
+            if (reference.includes('-')) {
+                let res = reference.split('-')
+                let start = +res[0]
+                let end = +res[1]
+            // result == 9.96 && alert(end)
+                if(+result < start || +result > end){
+                    return false
+                }
+                return true // 正常
+            }
+            if (reference.includes('>')) {
+                let res = reference.split('>')
+                
+                let min = +res[1]
+                if(+result > min ){
+                    return true
+                }
+                return false
+            }
+            if (reference.includes('<')) {
+                let res = reference.split('<')
+                let max = +res[1]
+
+                if(+result < max){
+                    return true
+                }
+                return false
+            }
+        },
+        advice(ehrId){
+            let t = this
+            request({
+                url: `patient/lisData/${ehrId}`,
+                data: {
+                    token: store.get('init').token,
+                    uid: store.get('init').uuid,
+                    t: (new Date().getTime())+4000
+                }
+            }).then(res => {
+                if(res.info.length>0){
+
+                    this.queryAllExams = res.info
+                    console.log('queryAllExams: ', this.queryAllExams)
+                    this.examReport = res.info[0]
+                    
+                    this.getLisDataDetail(ehrId, res.info[0].ID)
+                }
+            })
+        },
+        getLisDataDetail(ehrId, labId){
             if(!labId){
                 weui.toast('labId 不存在')
                 return
             }
             request({
-                url: `patient/lisDataDetail/${init.ehrId}/${labId}`,
+                url: `patient/lisDataDetail/${ehrId}/${labId}`,
                 data: {
-                    token: init.token,
-                    uid: init.uuid,
+                    token: store.get('init').token,
+                    uid: store.get('init').uuid,
                     t: (new Date().getTime())+4000
                 }
             }).then(res => {
                 
                 this.lisDataDetail = res.info
-                // this.examReport['lisDataDetail'] = res.info
+
                 console.log(`labid --${labId}: `, res.info)
                 // list = res.info
-                console.log(list.length)
+                console.log(this.lisDataDetail.length)
             })
         }
     }
@@ -174,6 +218,12 @@ export default {
 .right-0::before{
     content: '关闭';
     display: block;
+}
+.red {
+    color: red;
+}
+.bg {
+    background: rgba(177,170,172,.3)
 }
 </style>
 

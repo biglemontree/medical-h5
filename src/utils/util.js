@@ -3,6 +3,8 @@
  * @file 基本工具类
  */
 import axios from 'axios'
+import store from 'store'
+
 export default class Util {
     /**
      * 获取路径参数
@@ -64,5 +66,30 @@ export default class Util {
                 reject(error)
             })
         })
+    }
+
+    /**
+     * 获取token uuid date ehrId
+     * @param 
+     * @returns {string}
+     */
+    static getInit(){
+        if (window.android) {
+            const uuid = window.android.getUuid()
+            const token = window.android.getToken()
+            const ehrId = window.android.getEhrId()
+            const date = window.android.getDate()
+      
+            // console.log(date)
+            // const timeZone = window.android.setDateZone()
+            console.log('uuid: ', uuid)
+            store.set('init', {
+              uuid,
+              token,
+              ehrId,
+              date
+            })
+            console.log('init: ', store.get('init'))
+          }
     }
 }

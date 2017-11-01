@@ -252,7 +252,8 @@ a{
   background-color:#EC8B89;
 }
 .weui-btn_loading .weui-loading{
-  margin:-0.2em 0.34em 0 0;
+  /* margin:-0.2em 0.34em 0 0; */
+  margin:-01em 0.17em 0 0;
 }
 .weui-btn_loading.weui-btn_primary,
 .weui-btn_loading.weui-btn_warn{

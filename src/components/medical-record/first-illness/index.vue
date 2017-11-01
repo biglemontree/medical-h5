@@ -1,5 +1,6 @@
 <template>
-    <div class="fs-12px">
+    <div class="fs-14px">
+        {{test}}
         <div v-if="firstCourse.MEDICAL_FEATURE">
             <div class="p-10px relative">
                 <div>
@@ -59,28 +60,38 @@
 </template>
 <script>
 import store from 'store'
-const init = store.get('init')
-console.log(init.token)
+import vstore from '../../../store/index.js'
+
 export default {
     data(){
         return {
             firstCourse: {}
         }
     },
-    components: {
-
+    store: vstore,
+    computed: {
+        test(){
+            request({
+                url: `patient/firstCourse/${this.$store.state.ehrId}`,
+                data: {
+                    token: store.get('init').token,
+                    uid: store.get('init').uuid,
+                    t: (new Date().getTime())+4000
+                }
+            }).then(res => {
+                
+                if (res.flag==0) {
+                    
+                    } else if (res.flag == 1) {
+                        
+                    this.firstCourse = res.info[0]
+                    return ''
+                }
+            })
+        }
     },
-    mounted(){
-        request({
-            url: `patient/firstCourse/${init.ehrId}`,
-            data: {
-                token: init.token,
-                uid: init.uuid,
-                t: (new Date().getTime())+4000
-            }
-        }).then(res => {
-            this.firstCourse = res.info[0]
-        })
+    created(){
+       
     }
 }
 </script>

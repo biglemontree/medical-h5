@@ -1,6 +1,7 @@
 
 <template>
-    <div class="fs-12px">
+    <div class="fs-14px">
+        {{test}}
         <div v-for="(item, index) in checkInRecord" v-bind:key='index'>
             <div class="p-10px relative">
                 <div class="f-bold">
@@ -14,27 +15,36 @@
 </template>
 <script>
 import store from 'store'
-const init = store.get('init')
+import vstore from '../../../store/index.js'
+
 export default {
     data(){
         return {
             checkInRecord: []
         }
     },
-    components: {
+    store: vstore,
+     computed: {
+        test(){
+            request({
+                url: `patient/checkInRecord/${this.$store.state.ehrId}`,
+                data: {
+                    token: store.get('init').token,
+                    uid: store.get('init').uuid,
+                    t: (new Date().getTime())+4000
+                }
+            }).then(res => {
+                
+                if (res.flag==0) {
+                    
+                    } else if (res.flag == 1) {
+                        
+                    this.checkInRecord = res.info
+                    return ''
+                }
+            })
+        }
     },
-    mounted(){
-        request({
-            url: `patient/checkInRecord/${init.ehrId}`,
-            data: {
-                token: init.token,
-                uid: init.uuid,
-                t: (new Date().getTime())+4000
-            }
-        }).then(res => {
-            this.checkInRecord = res.info
-        })
-    }
 }
 </script>
 <style >

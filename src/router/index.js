@@ -16,6 +16,11 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
+      path: '/',
+      name: 'home',
+      redirect: '/medical-record',
+    },
+    {
       path: '/medical-record',
       name: 'medical-record',
       redirect: '/medical-record/admission-note',

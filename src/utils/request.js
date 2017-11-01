@@ -113,9 +113,12 @@ export default function requestInit(opt) {
 
                 axios(opt).then(res => {
                     console.log(res.data)
+                    if(res.data.rspCode == 'error'||res.data.rspCode == 'erro'){
+                        defaultRequestConfig.onMessage(res.data.rspDesc);
+                    }
                     if(res.data.flag == 1){
                         resolve(res.data);
-                    }else if (res.data.flag == 1) {
+                    }else if (res.data.flag == 0) {
                         opt.exception.handle();
                     }
                     defaultRequestConfig.onMessage(res.data.message);

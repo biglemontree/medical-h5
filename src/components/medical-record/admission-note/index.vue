@@ -1,5 +1,6 @@
 <template>
-    <div class="fs-12px ">
+    <div class="fs-14px " v-if="record!=null">
+        {{test}}
         <div v-if="record.CHIEF_COMPLAINT">
             <div class="p-10px relative">
                 <div>
@@ -93,40 +94,54 @@
 <script>
 import axios from 'axios'
 import store from 'store'
+import vstore from '../../../store/index.js'
+
 export default {
     data(){
         return {
             record: {},
-
+            ehrId: this.$store.state.ehrId
         }
     },
-    mounted(){
-        let uuid = '9A97C5D8891242F0AB87881A295D686B'
-        let token = 'cf338f46-0f45-448f-b2c3-0a5cdd8a13ab'
-        let ehrId = '2984543'
+    store: vstore,
+    created(){
+
 
         let t = this
         let init = store.get('init')
-       let result = request({
-            url: `patient/inHospital/${ehrId}`,
-            data: {
-                token: init.token,
-                uid: init.uuid,
-                t: (new Date().getTime())+4000
-            }
-        }).then(res => {
-            
-            console.log(res.info[0])
-            if (res.flag==0) {
-                
-            } else if (res.flag == 1) {
-                
-                t.record = res.info[0]
-            }
-        })
     },
-    components: {
-    }
+
+    computed: {
+        test(){
+            const uuid = window.android.getUuid()
+            const token = window.android.getToken()
+            const list = window.android.getEhrList()
+            console.log('note:token-', store.get('init').token)
+            store.set('init', {
+                uuid,
+                token,
+            })
+
+            request({
+                url: `patient/inHospital/${this.$store.state.ehrId}`,
+                data: {
+                    token: store.get('init').token,
+                    uid: store.get('init').uuid,
+                    t: (new Date().getTime())+4000
+                }
+            }).then(res => {
+                
+                console.log(res.info[0])
+                if (res.flag==0) {
+                    
+                    } else if (res.flag == 1) {
+                        
+                    this.record = res.info[0]
+                    return ''
+                }
+            })
+        }
+    },
 }
 </script>
 <style>

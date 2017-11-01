@@ -1,6 +1,7 @@
 <template>
-    <div class="fs-12px">
-        <div v-for="(item, index) in dailyCourse" v-bind:key='index'>
+    <div class="fs-14px" >
+        {{test}}
+        <div v-for="(item, index) in dailyCourse" v-bind:key='index' >
             <div class="p-10px relative">
                 <div class="f-bold">
                     {{item.RECORD_DATE}} {{item.RECORD_TOPIC}}
@@ -13,27 +14,32 @@
 </template>
 <script>
 import store from 'store'
-const init = store.get('init')
-console.log(init.token)
+import vstore from '../../../store/index.js'
+
 export default {
     data(){
         return {
-            dailyCourse: []
+            dailyCourse: [],
+      
         }
     },
-    components: {
+    store: vstore,
+    computed: {
+        test(){
+            console.log('this.$store.state.ehrId: ', this.$store.state.ehrId)
+            request({
+                url: `patient/dailyCourse/${this.$store.state.ehrId}`,
+                data: {
+                    token: store.get('init').token,
+                    uid: store.get('init').uuid,
+                    t: (new Date().getTime())+4000
+                }
+            }).then(res => {
+                
+                console.log(res.info)
+                this.dailyCourse = res.info
+            })
+        }
     },
-    mounted(){
-        request({
-            url: `patient/dailyCourse/${init.ehrId}`,
-            data: {
-                token: init.token,
-                uid: init.uuid,
-                t: (new Date().getTime())+4000
-            }
-        }).then(res => {
-            this.dailyCourse = res.info
-        })
-    }
 }
 </script>
