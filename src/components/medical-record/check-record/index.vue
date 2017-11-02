@@ -1,10 +1,10 @@
 
 <template>
-    <div class="fs-14px">
+    <div class="fs-16px">
         {{test}}
         <div v-for="(item, index) in checkInRecord" v-bind:key='index' v-if='checkInRecord.length>0'>
             <div class="p-10px relative">
-                <div class="f-bold">
+                <div class="fs-18px f-bold">
                     {{item.RECORD_DATE}} {{item.RECORD_TOPIC}}
                 </div>
                 <div class="pt-6px" v-html="item.RECORD_CONTENT"></div>

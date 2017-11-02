@@ -1,47 +1,37 @@
 <template>
     <div class="">
         {{test}}
-        <!-- 顶部 -->
-         <!-- <div class="fixed left-0 top-0 w-100 flex justify-center bg-168ADC c-fff">
-            <div @click="actionSheet">
-                <div class="fs-12px center">{{top.MASTER_DOCTOR_NAME}}</div>
-                <div class="fs-10px center">
-                    <span>{{top.IN_DATE}} 至{{top.OUT_DATE || '现在'}}</span>
-                    <img :src="down" class="w-4px h-4px" alt="">
-                </div>
-            </div>
-        </div> -->
         <div v-if='queryAllExams.length>0' class='flex relative pb-50px overflow-none h-100vh'>
             <!-- 左侧 -->
-            <div :class="['w-0 bg-e9e9e9 fs-14px animation overflow-y h-100 pt-56px c-444', {'relative w-3':toggle}]" v-show="toggle">
-                <div :class="['p-10px border-b-D8D8D8', {'red': item.RESULT_COUNT>0}, {'c-168ADC': index==i},]" v-for="(item, i) in queryAllExams" v-bind:key="i" @click="showReport(i, item.ID)">
-                    <div>[住院]</div>
-                    <!-- {{queryAllExams}} -->
+            <div :class="['w-0 bg-e9e9e9 fs-16px animation overflow-y h-100 pt-56px c-444', {'relative w-3':toggle}]" v-show="toggle">
+                <div :class="['p-10px border-b-D8D8D8 c-444', {'red': item.RESULT_COUNT>0}, {'bg-fff': index===i},]" v-for="(item, i) in queryAllExams" v-bind:key="i" @click="showReport(i, item.ID)">
+                    <div class=''>[住院]
+                        <!-- {{item.ID}} -->
+                    </div>
                     <div>{{item.LAB_REPORT_DATE}}</div>
                     <div>{{item.LAB_NAME}}</div>
                 </div>
             </div>
             <!-- 悬浮层 -->
-            <div :class="['fs-12px bg-fff write-tb fixed px-10px py-20px flex flex-column items-center', toggle? 'right-0': 'left-0']" @click="togglePanel">
-                
-                <img :src="[toggle? right:left]" class="w-10px" alt="" >
+            <div :class="['fs-12px bg-fff write-tb fixed px-10px py-20px flex flex-column items-center justify-center', toggle? 'right-0': 'left-0']" @click="togglePanel">          
+                <img :src="[toggle? right:left]" class="w-15px" alt="" >
             </div>
             <!-- 右侧 -->
-            <div class="overflow-y flex-1 p-10px fs-14px pt-56px" v-if="examReport.ID">
-                <div class=" fs-16px center py-6px border-b-D8D8D8">{{examReport.LAB_NAME}}</div>
+            <div :class="['overflow-y flex-1 p-10px fs-16px pt-56px', {'pl-20px': !toggle}]" v-if="examReport.ID">
+                <div class="f-bold fs-18px center py-6px border-b-D8D8D8">{{examReport.LAB_NAME}}</div>
                 <div class="py-6px border-b-D8D8D8">
                     <div>检验单号: {{examReport.ID}}</div>
-                    <div>患者信息: {{examReport.PATIENT_NAME}}  {{examReport.SEX==1?'男':'女'}}  {{examReport.AGE}}岁</div>
+                    <div>患者信息: {{examReport.NAME}}  {{examReport.SEX==1?'男':'女'}}  {{examReport.AGE}}</div>
                     <div>检查日期: {{examReport.EXAM_DATE}}</div>
                     <div>检查部位: {{examReport.EXAM_PART}}</div>
                 </div>
                 
                 <div class="py-6px border-b-D8D8D8" v-if="lisDataDetail.length>0">
-                    <div v-for="(list, index) in lisDataDetail" v-bind:key="index" :class="{'py-6px': true, 'bg': item==index, 'red': !isNormal(list.RESULT_REFERENCE, list.RESULT_VALUE)}"  @click="item = index">
+                    <div v-for="(list, index) in lisDataDetail" v-bind:key="index" :class="{'py-6px': true, 'bg': item===index, 'red': list.RESULT_DESC!=' '}"  @click="item = index">
                         <!-- {{isNormal(list.RESULT_REFERENCE, list.RESULT_VALUE)}} -->
-                        <div>{{list.LAB_ITEM_CH_NAME}}</div>
+                        <div class='fs-18px f-bold'>{{list.LAB_ITEM_CH_NAME}}</div>
                         <div class="flex ">
-                            <div class="flex-1">结果: {{list.RESULT_VALUE}}</div>
+                            <div class="flex-1">结果: {{list.RESULT_VALUE}}{{list.RESULT_DESC==='H'?'↑' : (list.RESULT_DESC==='L'?'↓':'')}}</div>
                             <div class="flex-1">单位: {{list.RESULT_UNIT}}</div>
                         </div>
                         <div>参考值:{{list.RESULT_REFERENCE}}</div>
@@ -62,7 +52,7 @@
                 </div>
             </div>
         </div>
-        <div v-else>
+        <div v-else class='center pt-120px px-30px'>
             <a href="javascript:;" class="weui-btn weui-btn_primary">sorry~ 暂无内容</a>
         </div>
         
@@ -72,8 +62,8 @@
 <script>
 
 import store from 'store'
-import right from '../../assets/a-left.svg'
-import left from './../../assets/a-right.svg'
+import right from '../../assets/a-left.png'
+import left from './../../assets/a-right.png'
 import down from '../../assets/a-down.svg'
 import vstore from '../../store/index.js'
 
@@ -87,7 +77,7 @@ export default {
             down,
             index: 0, //默认第一个
             id: '',
-            item: 0,
+            item: '', // 右侧当前选中的
             examReport: {}, // 检查报告
             lisDataDetail: [],
             queryAllExams: [], //list
@@ -159,6 +149,9 @@ export default {
                     return true
                 }
                 return false
+            }
+            if (reference === result) {
+                return true
             }
         },
         advice(ehrId){

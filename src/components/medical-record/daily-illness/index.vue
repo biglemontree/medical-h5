@@ -1,9 +1,9 @@
 <template>
-    <div class="fs-14px" >
+    <div class="fs-16px" >
         {{test}}
         <div v-for="(item, index) in dailyCourse" v-bind:key='index' >
             <div class="p-10px relative">
-                <div class="f-bold">
+                <div class="fs-18px f-bold">
                     {{item.RECORD_DATE}} {{item.RECORD_TOPIC}}
                 </div>
                 <div class="pt-6px" v-html="item.RECORD_CONTENT"></div>

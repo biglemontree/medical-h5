@@ -1,7 +1,7 @@
 <template>
     <div class="fixed left-0 top-0 w-100 flex  bg-168ADC flex items-center justify-center c-fff py-6px z1">
       
-        <img src="../assets/a-left.svg" @click="close" class="absolute left-10px h-20px" alt="">
+        <img src="../assets/to_left.png" @click="close" class="absolute left-10px w-15px" alt="">
         
         <div @click="actionSheet" class="auto-center fs-16px">
             <div class="fs-18px center">{{top.NAME}}</div>
