@@ -53,7 +53,7 @@
             </div>
         </div>
         <div v-else class='center pt-120px px-30px'>
-            <a href="javascript:;" class="weui-btn weui-btn_primary">sorry~ 暂无内容</a>
+            <a href="javascript:;" class="weui-btn weui-btn_primary">暂无检验数据</a>
         </div>
         
 
