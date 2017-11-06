@@ -69,7 +69,7 @@
         </div>
        
        <div v-else class='center pt-120px px-30px'>
-           <a href="javascript:;" class="weui-btn weui-btn_primary">暂无影像资料数据</a>
+           <a href="javascript:;" class="weui-btn c-168ADC">暂无影像资料数据</a>
        </div>
 
     </div>
@@ -158,5 +158,9 @@ export default {
     content: '关闭';
     display: block;
 } */
+
+.c-168ADC {
+    border: 1px solid #168ADC;
+}
 </style>
 

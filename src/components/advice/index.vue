@@ -7,21 +7,42 @@
         </div>
         <div class="pt-83px pb-50px">
             <div class="" v-for="(short, index) in shortList" v-bind:key="index" v-show="!showLong">
-                <div class="p-10px fs-16px">
-                    <div class='fs-18px f-bold'>{{short.NAME}}</div>
-                    <div class="flex ">
-                        <div class="w-6">类型: {{short.ORDER_CLASS}}</div> 
-                        <div class="flex-auto">规格: {{short.DRUG_RULE}}</div> 
-                    </div>
-                    <div>时间: {{short.ORDER_START_DATE}}至{{short.ORDER_END_DATE}}</div>
-                    <div>剂量: {{short.SINGLE_USED}}</div>
-                    <div>频次: {{short.USED_TIMES}}</div>
-                    <div>总剂量: {{short.TOTAL_USED}}</div>
-                </div>
+                <table class="table table-bordered" width='100%' border="1">
+                    <thead width='100%'> 
+                        <tr >
+                            <td class="center f-bold">类型</td>
+                            <td class="center">{{short.NAME}}</td>
+                            <td class="center f-bold">名称</td>
+                            <td class="center">{{short.DRUG_NAME}}</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr >
+                            <td class="center f-bold">开始时间</td>
+                            <td class="center">{{short.ORDER_START_DATE}}</td>
+                            <td class="center f-bold">结束时间</td>
+                            <td class="center">{{short.ORDER_END_DATE}}</td>
+                        </tr>
+                        <tr >
+                            <td class="center f-bold">规格</td>
+                            <td class="center">{{short.DRUG_RULE}}</td>
+                            <td class="center f-bold">剂量</td>
+                            <td class="center">{{short.SINGLE_USED}}</td>
+                        </tr>
+                        <tr >
+                            <td class="center f-bold">频次</td>
+                            <td class="center">{{short.USED_TIMES}}</td>
+                            <td class="center f-bold">总剂量</td>
+                            <td class="center">{{short.TOTAL_USED}}</td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
                 <div class="bg-eee h-10px"></div>
             </div>                
             <div class="" v-for="(long, index) in longList" v-bind:key="index" v-show="showLong">
-                <div class="p-10px fs-16px">
+                <!-- <div class="p-10px fs-16px">
                     <div class='fs-18px f-bold'>{{long.NAME}}</div>
                     <div class="flex ">
                         <div class="w-6">类型: {{long.ORDER_CLASS}}</div> 
@@ -31,7 +52,39 @@
                     <div>剂量: {{long.SINGLE_USED}}</div>
                     <div>频次: {{long.USED_TIMES}}</div>
                     <div>总剂量: {{long.TOTAL_USED}}</div>
-                </div>
+                </div> -->
+                <table class="table table-bordered" width='100%' border="1">
+                    <thead width='100%'> 
+                        <tr >
+                            <td class="center f-bold">类型</td>
+                            <td class="center">{{long.NAME}}</td>
+                            <td class="center f-bold">名称</td>
+                            <td class="center">{{long.DRUG_NAME}}</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr >
+                            <td class="center f-bold">开始时间</td>
+                            <td class="center">{{long.ORDER_START_DATE}}</td>
+                            <td class="center f-bold">结束时间</td>
+                            <td class="center">{{long.ORDER_END_DATE}}</td>
+                        </tr>
+                        <tr >
+                            <td class="center f-bold">规格</td>
+                            <td class="center">{{long.DRUG_RULE}}</td>
+                            <td class="center f-bold">剂量</td>
+                            <td class="center">{{long.SINGLE_USED}}</td>
+                        </tr>
+                        <tr >
+                            <td class="center f-bold">频次</td>
+                            <td class="center">{{long.USED_TIMES}}</td>
+                            <td class="center f-bold">总剂量</td>
+                            <td class="center">{{long.TOTAL_USED}}</td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
                 <div class="bg-eee h-10px"></div>
             </div>                
         </div>
@@ -61,37 +114,7 @@ export default {
   created(){
     //   顶部导航
        let t = this
-    //     if (window.android) {
-    //         const listChoose = window.android.getEhrList()
-    //         let result = JSON.parse(listChoose)
-    //         this.inDate = result[0].IN_DATE
-    //         this.outDate = result[0].OUT_DATE || '现在'
-    //         this.masterDoctorName = result[0].MASTER_DOCTOR_NAME 
-    //         this.advice(result[0].EHRID)
-    //         for (var index = 0; index < result.length; index++) {
-    //             var element = result[index];
-    //             this.list.push({
-    //                     label: `${element.IN_DATE}至${element.OUT_DATE||' 现在'}`,
-    //                     onClick: (cb) =>{
-    //                         this.advice(element.EHRID)
-    //                     }
-    //                 })
-    //         }
-    //     } 
-
-
-    //   request({
-    //         url: `patient/doctorAdviceCount`,
-    //         data: {
-    //             token: store.get('init').token,
-    //             uid: store.get('init').uuid,
-    //             t: (new Date().getTime())+4000,
-    //             ehrId: store.get('init').ehrId,
-    //             orderClass: 1
-    //         }
-    //     }).then(res => {
-    //         this.long = res.info
-    //     })  
+    
 
   },
   computed: {
@@ -144,5 +167,9 @@ export default {
 </script>
 <style scoped>
 .active {color: #168ADC; border-bottom: 1px solid #168ADC;}
+.td {
+    border: none;
+    /* border-top: 1px solid #eee; */
+}
 </style>
 

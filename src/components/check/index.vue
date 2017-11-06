@@ -53,7 +53,7 @@
             </div>
         </div>
         <div v-else class='center pt-120px px-30px'>
-            <a href="javascript:;" class="weui-btn weui-btn_primary">暂无检验数据</a>
+            <a href="javascript:;" class="weui-btn c-168ADC">暂无检验数据</a>
         </div>
         
 
@@ -223,6 +223,9 @@ export default {
 }
 .bg {
     background: rgba(177,170,172,.3)
+}
+.c-168ADC {
+    border: 1px solid #168ADC;
 }
 </style>
 
