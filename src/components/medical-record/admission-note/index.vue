@@ -31,7 +31,7 @@
             <div class="bg-eee h-10px"></div>
         </div>
 
-        <div>
+        <div v-if="record.FAMILY_HISTORY">
             <div class="p-10px relative">
                 <div class="fs-18px f-bold">
                     家族史
@@ -46,7 +46,7 @@
                 <div class="fs-18px f-bold">
                     体格检查
                 </div>
-                <div class="pt-6px">{{record.PHYSICALEXAM}}</div>
+                <div class="pt-6px" v-html="record.PHYSICALEXAM"></div>
             </div>
             <div class="bg-eee h-10px"></div>
         </div>
@@ -55,7 +55,7 @@
             <div class="fs-18px f-bold">
                 专科检查
             </div>
-            <div class="pt-6px">{{record.SPECIALEXAM}}</div>
+            <div class="pt-6px" v-html="record.SPECIALEXAM"></div>
         </div>
 
         <div v-if="record.AUXILYEXAM">
@@ -74,7 +74,7 @@
                 <div class="fs-18px f-bold">
                     初步诊断
                 </div>
-                <div class="pt-6px">{{record.INITIAL_DIAGNOSIS}}</div>
+                <div class="pt-6px" v-html="record.INITIAL_DIAGNOSIS"></div>
             </div>
             <div class="bg-eee h-10px"></div>
         </div>
@@ -84,7 +84,7 @@
                 <div class="fs-18px f-bold">
                     病史陈述者
                 </div>
-                <div class="pt-6px">{{record.EPRESENTOR}}</div>
+                <div class="pt-6px" v-html="record.EPRESENTOR"></div>
             </div>
             <div class="bg-eee h-10px"></div>
        </div>

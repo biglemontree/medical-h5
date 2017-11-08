@@ -114,8 +114,6 @@ export default {
   created(){
     //   顶部导航
        let t = this
-    
-
   },
   computed: {
         test(){
