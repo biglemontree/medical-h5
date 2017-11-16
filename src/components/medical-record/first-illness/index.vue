@@ -4,7 +4,7 @@
         <div v-if="firstCourse.MEDICAL_FEATURE">
             <div class="p-10px relative">
                 <div class='fs-18px f-bold'>
-                    病例特点
+                    病历特点
                 </div>
                 <div class="pt-6px" v-html="firstCourse.MEDICAL_FEATURE"></div>
             </div>

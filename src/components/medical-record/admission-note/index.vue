@@ -30,6 +30,16 @@
             </div>
             <div class="bg-eee h-10px"></div>
         </div>
+        
+        <div v-if="record.PERSONAL_HISTORY">
+            <div class="p-10px relative">
+                <div class="fs-18px f-bold">
+                    个人史
+                </div>
+                <div class="pt-6px" v-html="record.PERSONAL_HISTORY"></div>
+            </div>
+            <div class="bg-eee h-10px"></div>
+        </div>
 
         <div v-if="record.FAMILY_HISTORY">
             <div class="p-10px relative">

@@ -24,6 +24,7 @@ export default {
       const uuid = window.android.getUuid()
       const token = window.android.getToken()
       const list = window.android.getEhrList()
+      const Emr = window.android.getEmr()
       console.log('from-android-token: ', token)
       store.set('init', {
         uuid,

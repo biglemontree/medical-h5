@@ -22,8 +22,8 @@
                 <div class="py-6px border-b-D8D8D8">
                     <div>检验单号: {{examReport.ID}}</div>
                     <div>患者信息: {{examReport.NAME}}  {{examReport.SEX==1?'男':'女'}}  {{examReport.AGE}}</div>
-                    <div>检查日期: {{examReport.EXAM_DATE}}</div>
-                    <div>检查部位: {{examReport.EXAM_PART}}</div>
+                    <div>检查日期: {{examReport.LAB_REPORT_DATE}}</div>
+                    <div>标本部位: {{examReport.SPECIMEN_LOCATION}}</div>
                 </div>
                 
                 <div class="py-6px border-b-D8D8D8" v-if="lisDataDetail.length>0">

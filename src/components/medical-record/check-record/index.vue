@@ -48,6 +48,11 @@ export default {
             })
         }
     },
+    methods: {
+        test(){
+            window.android.tokenError()
+        }
+    }
 }
 </script>
 <style >

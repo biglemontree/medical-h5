@@ -3,7 +3,9 @@ import Router from 'vue-router'
 
 import MedicalRecord from '@/components/medical-record/index.vue'
 import AdmissionNote from '@/components/medical-record/admission-note'//入院记录
+import AdmissionOrigin from '@/components/medical-record/admission-origin'//入院记录原文
 import FirstIllness from '@/components/medical-record/first-illness'//首次病程
+import FirstOrigin from '@/components/medical-record/first-origin'//首次病程原文
 import DailyIllness from '@/components/medical-record/daily-illness'//日常病程
 import CheckRecord from '@/components/medical-record/check-record'//查房记录
 
@@ -30,6 +32,16 @@ export default new Router({
           path: 'admission-note',
           name: 'admission-note',
           component: AdmissionNote
+        },
+        {
+          path: 'admission-origin',
+          name: 'admission-origin',
+          component: AdmissionOrigin
+        },
+        {
+          path: '/medical-record/first-origin',
+          name: 'first-origin',
+          component: FirstOrigin
         },
         {
           path: '/medical-record/first-illness',

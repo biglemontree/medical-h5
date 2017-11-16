@@ -112,7 +112,6 @@ export default function requestInit(opt) {
                 if (opt.token) opt.params[defaultRequestConfig.tokenKey] = token;
 
                 axios(opt).then(res => {
-                    console.log(res.data)
                     if(res.data.rspCode == 'error'||res.data.rspCode == 'erro'){
                         defaultRequestConfig.onMessage(res.data.rspDesc);
                     }
@@ -120,6 +119,11 @@ export default function requestInit(opt) {
                         resolve(res.data);
                     }else if (res.data.flag == 0) {
                         opt.exception.handle();
+                    } else if (res.data.flag == -1) { //token失效
+                        console.log('android', window.android )
+                        defaultRequestConfig.onMessage(res.data.message);
+                        if(window.android)  window.android.tokenError() //关闭 跳至登录
+                        return
                     }
                     defaultRequestConfig.onMessage(res.data.message);
                     // if (opt.exception.codes && opt.exception.codes.indexOf(res.data.code) >= 0) {

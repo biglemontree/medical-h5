@@ -1,20 +1,14 @@
 <template lang="html">
-  <div>
-     <!-- <div class="fixed left-0 top-0 w-100 flex justify-center bg-168ADC c-fff">
-        <div @click="actionSheet">
-            <div class="fs-12px center">{{top.NAME}}</div>
-            <div class="fs-10px center">
-                <span>{{top.IN_DATE}} 至{{top.OUT_DATE || '现在'}}</span>
-                <img :src="down" class="w-8px h-8px" alt="">
-            </div>
-        </div>
-    </div> -->
-    <div class="head fixed top-20px left-0 flex justify-between w-100 bg-eee z1 c-BEBEBE bb-eee fs-14px">
-
-      <router-link class='fs-14px w-25 py-6px center' :to="{ name: 'admission-note', params: {} }" active-class='c-168ADC'>入院记录</router-link>
-      <router-link class='fs-14px w-25 py-6px center' :to="{ name: 'first-illness', params: {} }" active-class='c-168ADC'>首次病程</router-link>
-      <router-link class='fs-14px w-25 py-6px center' :to="{ name: 'daily-illness', params: {} }" active-class='c-168ADC'>日常病程</router-link>
-      <router-link class='fs-14px w-25 py-6px center' :to="{ name: 'check-record', params: {} }" active-class='c-168ADC'>查房记录</router-link>
+  <div class=''>
+    <div class="head fixed top-20px left-0  w-100 bg-eee z1 c-BEBEBE bb-eee fs-14px">
+      <div class='wrap flex justify-between'>
+        <router-link v-if="Emr =='0' || Emr==2 || Emr==4" class='fs-14px  px-10px py-10px center ' :to="{ name: 'admission-note', params: {} }" active-class='c-168ADC'>入院记录</router-link>
+        <router-link v-if="Emr!=0" class='fs-14px  px-10px py-10px center' :to="{ name: 'admission-origin', params: {} }" active-class='c-168ADC'>入院记录原文</router-link>
+        <router-link v-if="Emr =='0' || Emr==2 || Emr==4" class='fs-14px  px-10px py-10px center' :to="{ name: 'first-illness', params: {} }" active-class='c-168ADC'>首次病程</router-link>
+        <router-link v-if="Emr!=0" class='fs-14px  px-10px py-10px center' :to="{ name: 'first-origin', params: {} }" active-class='c-168ADC'>首次病程原文</router-link>
+        <router-link class='fs-14px  px-10px py-10px center' :to="{ name: 'daily-illness', params: {} }" active-class='c-168ADC'>日常病程</router-link>
+        <router-link class='fs-14px  px-10px py-10px center' :to="{ name: 'check-record', params: {} }" active-class='c-168ADC'>查房记录</router-link>
+      </div>  
     </div>
   </div>
 </template>
@@ -30,6 +24,7 @@ export default {
     return {
       top: {},
       down,
+      Emr: '',
       list: []
     }
   },
@@ -38,6 +33,8 @@ export default {
         // console.log('check: ', this.$store.state)
         if (window.android) {
             const listChoose = window.android.getEhrList()
+            const Emr = window.android.getEmr()
+            this.Emr = Emr
             let result = JSON.parse(listChoose)
             this.top = result[0]
             console.log(result)
@@ -75,4 +72,15 @@ export default {
 .bb-eee {border-bottom: 1px solid #eee;}
 .c-168ADC {color: #168ADC; border-bottom: 1px solid #168ADC;}
 .w-25 {width: 25%;}
+.wrap {
+    /* width: 600px; */
+     white-space: nowrap;
+}
+.head {
+    overflow-x: scroll;
+    white-space: nowrap;
+}
+a {
+    display: inline-block;
+}
 </style>

@@ -57,7 +57,7 @@ export default {
         });
       },
       close(){ 
-          console.log( window.android)
+        console.log( window.android)
         window.android.exitAndroid()
 
       }
