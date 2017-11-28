@@ -30,6 +30,28 @@
  *
  *
  */
+
+require('es6-promise').polyfill()
+// import a from 'es6-promise'
+// a.polyfill()
+// 检测android版本
+var ua = navigator.userAgent
+var system = {
+    android: false,
+};
+
+var lowPromise = require('es6-promise').Promise
+let iPromise;
+if (/Android (\d+\.\d+)/i.test(ua)) {
+    system.android = parseFloat(RegExp['$1']);
+    if(system.android<6){
+        iPromise = lowPromise
+    } else {
+        iPromise = Promise
+    }
+}
+
+
 import axios from 'axios';
 import store from 'store';
 import qs from 'qs';
@@ -100,8 +122,9 @@ export default function requestInit(opt) {
 
         if (!isLoading) defaultRequestConfig.onLoadStart();
         isLoading = true;
-
-        return new Promise(resolve => {
+        
+      
+        return new iPromise(resolve => {
             /**
              * 自动添加token后请求
              * @param token token
@@ -171,7 +194,7 @@ function updateToken() {
  * @param callback
  * @returns {Promise.<TResult>}
  */
-Promise.prototype.finally = function (callback) {
+iPromise.prototype.finally = function (callback) {
     let P = this.constructor;
     return this.then(
         value => P.resolve(callback()).then(() => value),

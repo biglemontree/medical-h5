@@ -140,7 +140,6 @@ export default {
                     t: (new Date().getTime())+4000
                 }
             }).then(res => {
-                
                 console.log(res.info[0])
                 if (res.flag==0) {
                     
